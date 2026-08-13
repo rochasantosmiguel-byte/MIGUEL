@@ -17,13 +17,23 @@ clickButton.onclick = function () {
 
 // Duplo Click
 function doubleClick() {
-    if (coins >= 50) {
-        coins -= 50;
+
+    // Preço começa em 50
+    // E aumenta 50% a cada compra
+    let preco = Math.floor(50 * Math.pow(1.5, power - 1));
+
+    if (coins >= preco) {
+
+        coins -= preco;
+
         power *= 2;
 
         atualizar();
+
     } else {
-        alert("Você precisa de 50 moedas!");
+
+        alert("Você precisa de " + preco + " moedas!");
+
     }
 }
 
