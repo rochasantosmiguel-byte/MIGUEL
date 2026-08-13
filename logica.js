@@ -1,83 +1,85 @@
-let score = 0;
+let coins = 0;
+let power = 1;
+let auto = 0;
 
-let clickPower = 1;
-
-let multiplier = 1;
-
-let autoClick = 0;
-
-const scoreText = document.getElementById("score");
+// Elementos da página
+const coinsText = document.getElementById("coins");
 const powerText = document.getElementById("power");
+const autoText = document.getElementById("auto");
+const cursorText = document.getElementById("cursor");
+const clickButton = document.getElementById("click");
 
-document.getElementById("clickBtn").onclick = function(){
+// Clique principal
+clickButton.onclick = function () {
+    coins += power;
+    atualizar();
+};
 
-    score += cl
+// Duplo Click
+function doubleClick() {
+    if (coins >= 50) {
+        coins -= 50;
+        power *= 2;
 
-    update();
+        atualizar();
+    } else {
+        alert("Você precisa de 50 moedas!");
+    }
 }
 
-function update(){
+// Auto Click
+function autoClick() {
+    if (coins >= 100) {
+        coins -= 100;
+        auto++;
 
-    scoreText.innerHTML = score;
-    powerText.innerHTML = clickPower * multiplier;
-
+        atualizar();
+    } else {
+        alert("Você precisa de 100 moedas!");
+    }
 }
 
-function buyPower(){
+// Skins
+function skin(tipo) {
 
-    if(score >= 50){
+    let preco = 0;
 
-        score -= 50;
-
-        clickPower++;
-
-        update();
-
-    }else{
-
-        alert("Pontos insuficientes!");
+    if (tipo === "⭐") {
+        preco = 200;
     }
 
-}
-
-function buyMultiplier(){
-
-    if(score >= 200){
-
-        score -= 200;
-
-        multiplier *= 2;
-
-        update();
-
-    }else{
-
-        alert("Pontos insuficientes!");
+    if (tipo === "🔥") {
+        preco = 500;
     }
 
-}
-
-function buyAutoClick(){
-
-    if(score >= 500){
-
-        score -= 500;
-
-        autoClick++;
-
-        update();
-
-    }else{
-
-        alert("Pontos insuficientes!");
+    if (tipo === "💎") {
+        preco = 1000;
     }
 
+    if (coins >= preco) {
+        coins -= preco;
+        cursorText.textContent = tipo;
+    } else {
+        alert("Você não tem moedas suficientes!");
+    }
+
+    atualizar();
 }
 
-setInterval(function(){
+// Auto Click acontece a cada 1 segundo
+setInterval(function () {
 
-    score += autoClick;
+    coins += auto;
 
-    update();
+    atualizar();
 
-},1000);
+}, 1000);
+
+// Atualizar informações na tela
+function atualizar() {
+
+    coinsText.textContent = coins;
+    powerText.textContent = power;
+    autoText.textContent = auto;
+
+}
