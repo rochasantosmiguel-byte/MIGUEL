@@ -18,15 +18,15 @@ clickButton.onclick = function () {
 // Duplo Click
 function doubleClick() {
 
-    // Preço começa em 50
-    // E aumenta 50% a cada compra
-    let preco = Math.floor(50 * Math.pow(1.5, power - 1));
+    let preco = Math.floor(50 * Math.pow(1.5, doubleLevel));
 
     if (coins >= preco) {
 
         coins -= preco;
 
         power *= 2;
+
+        doubleLevel++;
 
         atualizar();
 
