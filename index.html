@@ -2,26 +2,233 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clicker Infinito</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Clicker Game</title>
+
+    <style>
+        body {
+            background: #181818;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            margin: 0;
+        }
+
+        h1 {
+            color: #00ff88;
+        }
+
+        #coins {
+            font-size: 30px;
+            color: gold;
+        }
+
+        #click {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: none;
+            background: #00aa66;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #click:active {
+            transform: scale(0.95);
+        }
+
+        .shop {
+            background: #222;
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 400px;
+            border-radius: 15px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #00aa66;
+            color: white;
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>Clicker Infinito</h1>
+    <h1>🖱️ Clicker Game</h1>
 
-        <h2>Pontos</h2>
-        <p id="pontos">0</p>
+    <p>Moedas:</p>
+    <div id="coins">0</div>
 
-        <h2>Nível</h2>
-        <p id="nivel">1</p>
+    <br>
 
-        <button id="botao" onclick="clicker()">Clique Aqui</button>
+    <button id="click">CLIQUE!</button>
 
-        <p id="faltam"></p>
+    <div class="shop">
+
+        <h2>🛒 Loja</h2>
+
+        <h3>⚡ Duplo Click</h3>
+        <p>Valor por clique: <span id="power">1</span></p>
+
+        <button onclick="doubleClick()">
+            Comprar - 50 moedas
+        </button>
+
+        <hr>
+
+        <h3>🤖 Auto Click</h3>
+        <p>Auto clicks: <span id="auto">0</span></p>
+
+        <button onclick="autoClick()">
+            Comprar - 100 moedas
+        </button>
+
+        <hr>
+
+        <h2>🎨 Skins</h2>
+
+        <button onclick="skin('⭐')">
+            ⭐ Estrela - 200
+        </button>
+
+        <button onclick="skin('🔥')">
+            🔥 Fogo - 500
+        </button>
+
+        <button onclick="skin('💎')">
+            💎 Diamante - 1000
+        </button>
+
+        <p>Skin atual: <span id="cursor">🖱️</span></p>
+
     </div>
 
-<script src="logica.js"></script>
+
+<script>
+
+    let coins = 0;
+    let power = 1;
+    let auto = 0;
+
+    const coinsText = document.getElementById("coins");
+    const powerText = document.getElementById("power");
+    const autoText = document.getElementById("auto");
+    const cursorText = document.getElementById("cursor");
+
+    // Clique principal
+    document.getElementById("click").onclick = function() {
+
+        coins += power;
+
+        atualizar();
+
+    };
+
+
+    // Duplo click
+    function doubleClick() {
+
+        if (coins >= 50) {
+
+            coins -= 50;
+
+            power *= 2;
+
+            atualizar();
+
+        } else {
+
+            alert("Você precisa de 50 moedas!");
+
+        }
+
+    }
+
+
+    // Auto click
+    function autoClick() {
+
+        if (coins >= 100) {
+
+            coins -= 100;
+
+            auto++;
+
+            atualizar();
+
+        } else {
+
+            alert("Você precisa de 100 moedas!");
+
+        }
+
+    }
+
+
+    // Skins
+    function skin(tipo) {
+
+        let preco = 0;
+
+        if (tipo === "⭐") {
+            preco = 200;
+        }
+
+        if (tipo === "🔥") {
+            preco = 500;
+        }
+
+        if (tipo === "💎") {
+            preco = 1000;
+        }
+
+        if (coins >= preco) {
+
+            coins -= preco;
+
+            cursorText.textContent = tipo;
+
+        } else {
+
+            alert("Você não tem moedas suficientes!");
+
+        }
+
+        atualizar();
+
+    }
+
+
+    // Auto click funciona a cada segundo
+    setInterval(function() {
+
+        coins += auto;
+
+        atualizar();
+
+    }, 1000);
+
+
+    // Atualiza a tela
+    function atualizar() {
+
+        coinsText.textContent = coins;
+        powerText.textContent = power;
+        autoText.textContent = auto;
+
+    }
+
+</script>
+
 </body>
 </html>
