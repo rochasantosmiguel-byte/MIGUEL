@@ -1,27 +1,77 @@
-body{
-
-    margin:0;
-    background:#111;
-    color:white;
-    font-family:Arial;
+estilos.css
+body {
+    background: #181818;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
 }
 
-.container{
-
-    width:900px;
-    margin:auto;
-    text-align:center;
-    padding:40px;
+h1 {
+    color: #00ff88;
 }
 
-#clickBtn{
+#coins {
+    font-size: 30px;
+    color: gold;
+}
 
-    width:250px;
-    height:250px;
-    border-radius:50%;
-    font-size:30px;
-    border:none;
-    background:#ff9800;
-    cursor:pointer;
-    transition:.2s;
+#click {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: none;
+    background: #00aa66;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#click:hover {
+    background: #00cc77;
+}
+
+#click:active {
+    transform: scale(0.95);
+}
+
+.shop {
+    background: #222;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 400px;
+    border-radius: 15px;
+}
+
+.shop h2 {
+    color: #00ff88;
+}
+
+.shop h3 {
+    color: #ddd;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #00aa66;
+    color: white;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #00cc77;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #444;
+    margin: 20px 0;
+}
+
+#cursor {
+    font-size: 25px;
 }
