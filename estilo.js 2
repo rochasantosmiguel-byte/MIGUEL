@@ -1,373 +1,416 @@
-const SAVE_KEY = "clicker-mania-save";
+"use strict";
 
+
+// ==========================================
+// CONFIGURAÇÃO
+// ==========================================
+
+const SAVE_NAME = "clicker_mania_v2";
+
+
+// ==========================================
+// ESTADO DO JOGO
+// ==========================================
 
 let jogo = {
+    moedas: 0,
 
-  moedas: 0,
+    porClique: 1,
 
-  porClique: 1,
+    porSegundo: 0,
 
-  porSegundo: 0,
+    custoClique: 10,
 
-  custos: {
+    custoAuto: 50,
 
-    clique: 25,
+    custoMega: 250,
 
-    auto: 100,
-
-    mega: 500,
-
-    fabrica: 2000
-
-  }
-
+    custoFabrica: 1000
 };
 
 
-// PEGAR ELEMENTOS DA PÁGINA
+// ==========================================
+// PEGAR ELEMENTOS
+// ==========================================
 
-const moedas = document.getElementById("moedas");
+const moedasElement =
+    document.getElementById("moedas");
 
-const porClique =
-  document.getElementById("porClique");
+const cliqueElement =
+    document.getElementById("clique");
 
-const porSegundo =
-  document.getElementById("porSegundo");
+const segundoElement =
+    document.getElementById("segundo");
 
-const forcaClique =
-  document.getElementById("forcaClique");
+const valorCliqueElement =
+    document.getElementById("valorClique");
 
-const moeda =
-  document.getElementById("moeda");
+const botaoMoeda =
+    document.getElementById("botaoMoeda");
 
+const btnClique =
+    document.getElementById("btnClique");
 
-// BOTÕES
+const btnAuto =
+    document.getElementById("btnAuto");
 
-const upgradeClique =
-  document.getElementById("upgradeClique");
+const btnMega =
+    document.getElementById("btnMega");
 
-const upgradeAuto =
-  document.getElementById("upgradeAuto");
-
-const upgradeMega =
-  document.getElementById("upgradeMega");
-
-const upgradeFabrica =
-  document.getElementById("upgradeFabrica");
+const btnFabrica =
+    document.getElementById("btnFabrica");
 
 const resetar =
-  document.getElementById("resetar");
+    document.getElementById("resetar");
 
 
-// CARREGAR JOGO
+// ==========================================
+// CARREGAR
+// ==========================================
 
 function carregarJogo() {
 
-  const salvo =
-    localStorage.getItem(SAVE_KEY);
+    try {
 
-  if (salvo) {
+        const salvo =
+            localStorage.getItem(SAVE_NAME);
 
-    jogo = JSON.parse(salvo);
+        if (!salvo) {
 
-  }
+            return;
+
+        }
+
+        const dados =
+            JSON.parse(salvo);
+
+        if (typeof dados !== "object") {
+
+            return;
+
+        }
+
+        jogo = {
+            ...jogo,
+            ...dados
+        };
+
+    } catch (erro) {
+
+        console.warn(
+            "Não foi possível carregar o save.",
+            erro
+        );
+
+        localStorage.removeItem(SAVE_NAME);
+
+    }
 
 }
 
 
-// SALVAR JOGO
+// ==========================================
+// SALVAR
+// ==========================================
 
 function salvarJogo() {
 
-  localStorage.setItem(
+    try {
 
-    SAVE_KEY,
+        localStorage.setItem(
+            SAVE_NAME,
+            JSON.stringify(jogo)
+        );
 
-    JSON.stringify(jogo)
+    } catch (erro) {
 
-  );
+        console.warn(
+            "Não foi possível salvar o jogo.",
+            erro
+        );
+
+    }
 
 }
 
 
-// ATUALIZAR TELA
+// ==========================================
+// ATUALIZAR INTERFACE
+// ==========================================
 
 function atualizarTela() {
 
-  moedas.textContent =
-    Math.floor(jogo.moedas);
+    moedasElement.textContent =
+        Math.floor(jogo.moedas);
 
-  porClique.textContent =
-    jogo.porClique;
+    cliqueElement.textContent =
+        jogo.porClique;
 
-  porSegundo.textContent =
-    jogo.porSegundo;
+    segundoElement.textContent =
+        jogo.porSegundo;
 
-  forcaClique.textContent =
-    jogo.porClique;
-
-
-  document.getElementById(
-    "custoClique"
-  ).textContent =
-    jogo.custos.clique;
+    valorCliqueElement.textContent =
+        jogo.porClique;
 
 
-  document.getElementById(
-    "custoAuto"
-  ).textContent =
-    jogo.custos.auto;
+    document.getElementById(
+        "custoClique"
+    ).textContent =
+        jogo.custoClique;
 
 
-  document.getElementById(
-    "custoMega"
-  ).textContent =
-    jogo.custos.mega;
+    document.getElementById(
+        "custoAuto"
+    ).textContent =
+        jogo.custoAuto;
 
 
-  document.getElementById(
-    "custoFabrica"
-  ).textContent =
-    jogo.custos.fabrica;
+    document.getElementById(
+        "custoMega"
+    ).textContent =
+        jogo.custoMega;
 
 
-  upgradeClique.disabled =
-    jogo.moedas < jogo.custos.clique;
+    document.getElementById(
+        "custoFabrica"
+    ).textContent =
+        jogo.custoFabrica;
 
 
-  upgradeAuto.disabled =
-    jogo.moedas < jogo.custos.auto;
+    btnClique.disabled =
+        jogo.moedas < jogo.custoClique;
 
 
-  upgradeMega.disabled =
-    jogo.moedas < jogo.custos.mega;
+    btnAuto.disabled =
+        jogo.moedas < jogo.custoAuto;
 
 
-  upgradeFabrica.disabled =
-    jogo.moedas < jogo.custos.fabrica;
+    btnMega.disabled =
+        jogo.moedas < jogo.custoMega;
+
+
+    btnFabrica.disabled =
+        jogo.moedas < jogo.custoFabrica;
 
 }
 
 
-// CLICAR NA MOEDA
+// ==========================================
+// CLIQUE NA MOEDA
+// ==========================================
 
-moeda.addEventListener(
-  "click",
-  function() {
+botaoMoeda.addEventListener(
+    "click",
+    function () {
 
-    jogo.moedas +=
-      jogo.porClique;
+        jogo.moedas +=
+            jogo.porClique;
 
-    salvarJogo();
+        salvarJogo();
 
-    atualizarTela();
-
-  }
-);
-
-
-// UPGRADE DE CLIQUE
-
-upgradeClique.addEventListener(
-  "click",
-  function() {
-
-    if (
-      jogo.moedas <
-      jogo.custos.clique
-    ) {
-
-      return;
+        atualizarTela();
 
     }
-
-
-    jogo.moedas -=
-      jogo.custos.clique;
-
-
-    jogo.porClique += 1;
-
-
-    jogo.custos.clique =
-      Math.ceil(
-        jogo.custos.clique * 1.6
-      );
-
-
-    salvarJogo();
-
-    atualizarTela();
-
-  }
 );
 
 
-// MINERADOR
+// ==========================================
+// UPGRADE: CLIQUE
+// ==========================================
 
-upgradeAuto.addEventListener(
-  "click",
-  function() {
+btnClique.addEventListener(
+    "click",
+    function () {
 
-    if (
-      jogo.moedas <
-      jogo.custos.auto
-    ) {
+        if (
+            jogo.moedas <
+            jogo.custoClique
+        ) {
 
-      return;
+            return;
+
+        }
+
+        jogo.moedas -=
+            jogo.custoClique;
+
+        jogo.porClique += 1;
+
+        jogo.custoClique =
+            Math.ceil(
+                jogo.custoClique * 1.5
+            );
+
+        salvarJogo();
+
+        atualizarTela();
 
     }
-
-
-    jogo.moedas -=
-      jogo.custos.auto;
-
-
-    jogo.porSegundo += 1;
-
-
-    jogo.custos.auto =
-      Math.ceil(
-        jogo.custos.auto * 1.7
-      );
-
-
-    salvarJogo();
-
-    atualizarTela();
-
-  }
 );
 
 
-// SUPER CLIQUE
+// ==========================================
+// UPGRADE: AUTOMÁTICO
+// ==========================================
 
-upgradeMega.addEventListener(
-  "click",
-  function() {
+btnAuto.addEventListener(
+    "click",
+    function () {
 
-    if (
-      jogo.moedas <
-      jogo.custos.mega
-    ) {
+        if (
+            jogo.moedas <
+            jogo.custoAuto
+        ) {
 
-      return;
+            return;
+
+        }
+
+        jogo.moedas -=
+            jogo.custoAuto;
+
+        jogo.porSegundo += 1;
+
+        jogo.custoAuto =
+            Math.ceil(
+                jogo.custoAuto * 1.6
+            );
+
+        salvarJogo();
+
+        atualizarTela();
 
     }
-
-
-    jogo.moedas -=
-      jogo.custos.mega;
-
-
-    jogo.porClique += 10;
-
-
-    jogo.custos.mega =
-      Math.ceil(
-        jogo.custos.mega * 2.1
-      );
-
-
-    salvarJogo();
-
-    atualizarTela();
-
-  }
 );
 
 
-// FÁBRICA
+// ==========================================
+// UPGRADE: SUPER CLIQUE
+// ==========================================
 
-upgradeFabrica.addEventListener(
-  "click",
-  function() {
+btnMega.addEventListener(
+    "click",
+    function () {
 
-    if (
-      jogo.moedas <
-      jogo.custos.fabrica
-    ) {
+        if (
+            jogo.moedas <
+            jogo.custoMega
+        ) {
 
-      return;
+            return;
+
+        }
+
+        jogo.moedas -=
+            jogo.custoMega;
+
+        jogo.porClique += 10;
+
+        jogo.custoMega =
+            Math.ceil(
+                jogo.custoMega * 2
+            );
+
+        salvarJogo();
+
+        atualizarTela();
 
     }
-
-
-    jogo.moedas -=
-      jogo.custos.fabrica;
-
-
-    jogo.porSegundo += 10;
-
-
-    jogo.custos.fabrica =
-      Math.ceil(
-        jogo.custos.fabrica * 2.2
-      );
-
-
-    salvarJogo();
-
-    atualizarTela();
-
-  }
 );
 
 
+// ==========================================
+// UPGRADE: FÁBRICA
+// ==========================================
+
+btnFabrica.addEventListener(
+    "click",
+    function () {
+
+        if (
+            jogo.moedas <
+            jogo.custoFabrica
+        ) {
+
+            return;
+
+        }
+
+        jogo.moedas -=
+            jogo.custoFabrica;
+
+        jogo.porSegundo += 10;
+
+        jogo.custoFabrica =
+            Math.ceil(
+                jogo.custoFabrica * 2
+            );
+
+        salvarJogo();
+
+        atualizarTela();
+
+    }
+);
+
+
+// ==========================================
 // PRODUÇÃO AUTOMÁTICA
+// ==========================================
 
 setInterval(
-  function() {
+    function () {
 
-    if (jogo.porSegundo > 0) {
+        if (jogo.porSegundo <= 0) {
 
-      jogo.moedas +=
-        jogo.porSegundo;
+            return;
 
-      salvarJogo();
+        }
 
-      atualizarTela();
+        jogo.moedas +=
+            jogo.porSegundo;
 
-    }
+        salvarJogo();
 
-  },
+        atualizarTela();
 
-  1000
-
+    },
+    1000
 );
 
 
-// RESETAR
+// ==========================================
+// RESET
+// ==========================================
 
 resetar.addEventListener(
-  "click",
-  function() {
+    "click",
+    function () {
 
-    const confirmar =
-      confirm(
-        "Deseja realmente apagar todo o progresso?"
-      );
+        const confirmar =
+            confirm(
+                "Apagar todo o progresso?"
+            );
 
+        if (!confirmar) {
 
-    if (!confirmar) {
+            return;
 
-      return;
+        }
+
+        localStorage.removeItem(
+            SAVE_NAME
+        );
+
+        location.reload();
 
     }
-
-
-    localStorage.removeItem(
-      SAVE_KEY
-    );
-
-
-    location.reload();
-
-  }
 );
 
 
-// INICIAR
+// ==========================================
+// INICIAR JOGO
+// ==========================================
 
 carregarJogo();
 
