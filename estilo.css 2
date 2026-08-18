@@ -1,258 +1,234 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
+    margin: 0;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    min-height: 100vh;
 
-  padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
 
-  color: white;
+    color: white;
 
-  background:
-    radial-gradient(
-      circle at top,
-      #5d2db5,
-      #10091f 60%
-    );
+    background:
+        radial-gradient(
+            circle at top,
+            #673ab7,
+            #12091f 70%
+        );
+
+    padding: 20px;
 }
 
-.game {
-  width: min(100%, 900px);
+.container {
+    width: 100%;
+    max-width: 900px;
+
+    text-align: center;
 }
 
 h1 {
-  margin: 0;
+    margin: 0;
 
-  text-align: center;
+    font-size: 48px;
 
-  color: #ffd84d;
+    color: #ffd740;
 
-  font-size: 50px;
-
-  text-shadow:
-    0 0 20px #ff9900;
+    text-shadow:
+        0 0 20px #ff9800;
 }
 
-.subtitle {
-  text-align: center;
+.container > p {
+    color: #ccc;
 
-  color: #c9c2dc;
-
-  margin-bottom: 25px;
+    margin-bottom: 25px;
 }
 
 
-/* ESTATÍSTICAS */
+/* STATUS */
 
-.stats {
-  display: grid;
+.status {
+    display: grid;
 
-  grid-template-columns:
-    repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
-  gap: 12px;
+    gap: 15px;
 
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
-.stat {
-  padding: 15px;
+.status div {
+    padding: 15px;
 
-  text-align: center;
+    border-radius: 15px;
 
-  border-radius: 15px;
+    background: #ffffff12;
 
-  background: #ffffff12;
-
-  border: 1px solid #ffffff20;
+    border: 1px solid #ffffff22;
 }
 
-.stat span {
-  display: block;
+.status strong {
+    display: block;
 
-  color: #bbb;
-}
+    margin-top: 7px;
 
-.stat strong {
-  display: block;
+    font-size: 25px;
 
-  margin-top: 5px;
-
-  font-size: 25px;
-
-  color: #ffd84d;
+    color: #ffd740;
 }
 
 
-/* LAYOUT */
+/* JOGO */
 
-.layout {
-  display: grid;
+.game {
+    display: grid;
 
-  grid-template-columns:
-    1.1fr 0.9fr;
+    grid-template-columns:
+        1fr 1fr;
 
-  gap: 20px;
+    gap: 20px;
 }
 
 
-/* ÁREA DO CLIQUE */
+/* CLICKER */
 
-.click-area,
-.shop {
-  padding: 25px;
+.clicker,
+.loja {
+    padding: 25px;
 
-  border-radius: 20px;
+    border-radius: 20px;
 
-  background: #ffffff10;
+    background: #ffffff10;
 
-  border: 1px solid #ffffff20;
-
-  box-shadow:
-    0 15px 40px #0005;
+    border: 1px solid #ffffff22;
 }
 
-.click-area {
-  text-align: center;
+.clicker h2,
+.loja h2 {
+    margin-top: 0;
 }
 
 
 /* MOEDA */
 
-.coin {
-  width: 230px;
-  height: 230px;
+.moeda {
+    width: 220px;
+    height: 220px;
 
-  margin: 25px auto;
+    margin: 25px auto;
 
-  display: grid;
-  place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  border-radius: 50%;
+    border-radius: 50%;
 
-  border: 10px solid #ffad19;
+    border: 10px solid #f6a800;
 
-  background:
-    radial-gradient(
-      circle at 35% 25%,
-      #fff59a,
-      #ffd02e 45%,
-      #e48700
-    );
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #fff59d,
+            #ffd740 45%,
+            #e68a00
+        );
 
-  box-shadow:
-    0 0 45px #ffad1970,
-    inset 0 -13px 0 #bd6900;
+    box-shadow:
+        0 0 40px #ffb300aa,
+        inset 0 -12px 0 #bd6d00;
 
-  font-size: 80px;
+    font-size: 80px;
 
-  cursor: pointer;
+    cursor: pointer;
 
-  transition: transform 0.1s;
+    transition: 0.1s;
 }
 
-.coin:hover {
-  transform: scale(1.05);
+.moeda:hover {
+    transform: scale(1.05);
 }
 
-.coin:active {
-  transform: scale(0.9);
+.moeda:active {
+    transform: scale(0.9);
 }
 
 
-/* LOJA */
-
-.shop h2 {
-  margin-top: 0;
-}
+/* UPGRADES */
 
 .upgrade {
-  width: 100%;
+    width: 100%;
 
-  margin: 7px 0;
+    margin-bottom: 10px;
 
-  padding: 14px;
+    padding: 15px;
 
-  border: none;
+    border: none;
 
-  border-radius: 12px;
+    border-radius: 12px;
 
-  background: #5d38b6;
+    background: #673ab7;
 
-  color: white;
+    color: white;
 
-  text-align: left;
+    text-align: left;
 
-  cursor: pointer;
+    font-size: 16px;
 
-  transition: 0.15s;
+    cursor: pointer;
+
+    transition: 0.15s;
 }
 
 .upgrade:hover:not(:disabled) {
-  background: #754bd8;
+    background: #7e57c2;
 
-  transform: translateY(-2px);
+    transform: translateY(-2px);
 }
 
 .upgrade:disabled {
-  opacity: 0.4;
+    opacity: 0.4;
 
-  cursor: not-allowed;
+    cursor: not-allowed;
 }
 
-.upgrade b,
 .upgrade span,
 .upgrade small {
-  display: block;
-}
+    display: block;
 
-.upgrade b {
-  font-size: 16px;
-}
-
-.upgrade span {
-  margin-top: 5px;
-
-  color: #ddd;
+    margin-top: 5px;
 }
 
 .upgrade small {
-  margin-top: 8px;
-
-  color: #ffd84d;
+    color: #ffd740;
 }
 
 
-/* BOTÃO RESET */
+/* RESET */
 
 .reset {
-  display: block;
+    margin-top: 20px;
 
-  margin: 20px auto;
+    padding: 12px 20px;
 
-  padding: 10px 20px;
+    border: none;
 
-  border: none;
+    border-radius: 10px;
 
-  border-radius: 10px;
+    background: #e53935;
 
-  background: #d33d55;
+    color: white;
 
-  color: white;
-
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .reset:hover {
-  background: #ef5069;
+    background: #f44336;
 }
 
 
@@ -260,23 +236,23 @@ h1 {
 
 @media (max-width: 700px) {
 
-  .stats {
-    grid-template-columns: 1fr;
-  }
+    .status {
+        grid-template-columns: 1fr;
+    }
 
-  .layout {
-    grid-template-columns: 1fr;
-  }
+    .game {
+        grid-template-columns: 1fr;
+    }
 
-  h1 {
-    font-size: 38px;
-  }
+    h1 {
+        font-size: 36px;
+    }
 
-  .coin {
-    width: 190px;
-    height: 190px;
+    .moeda {
+        width: 180px;
+        height: 180px;
 
-    font-size: 65px;
-  }
+        font-size: 65px;
+    }
 
 }
