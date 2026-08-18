@@ -1,1 +1,374 @@
+const SAVE_KEY = "clicker-mania-save";
 
+
+let jogo = {
+
+  moedas: 0,
+
+  porClique: 1,
+
+  porSegundo: 0,
+
+  custos: {
+
+    clique: 25,
+
+    auto: 100,
+
+    mega: 500,
+
+    fabrica: 2000
+
+  }
+
+};
+
+
+// PEGAR ELEMENTOS DA PÁGINA
+
+const moedas = document.getElementById("moedas");
+
+const porClique =
+  document.getElementById("porClique");
+
+const porSegundo =
+  document.getElementById("porSegundo");
+
+const forcaClique =
+  document.getElementById("forcaClique");
+
+const moeda =
+  document.getElementById("moeda");
+
+
+// BOTÕES
+
+const upgradeClique =
+  document.getElementById("upgradeClique");
+
+const upgradeAuto =
+  document.getElementById("upgradeAuto");
+
+const upgradeMega =
+  document.getElementById("upgradeMega");
+
+const upgradeFabrica =
+  document.getElementById("upgradeFabrica");
+
+const resetar =
+  document.getElementById("resetar");
+
+
+// CARREGAR JOGO
+
+function carregarJogo() {
+
+  const salvo =
+    localStorage.getItem(SAVE_KEY);
+
+  if (salvo) {
+
+    jogo = JSON.parse(salvo);
+
+  }
+
+}
+
+
+// SALVAR JOGO
+
+function salvarJogo() {
+
+  localStorage.setItem(
+
+    SAVE_KEY,
+
+    JSON.stringify(jogo)
+
+  );
+
+}
+
+
+// ATUALIZAR TELA
+
+function atualizarTela() {
+
+  moedas.textContent =
+    Math.floor(jogo.moedas);
+
+  porClique.textContent =
+    jogo.porClique;
+
+  porSegundo.textContent =
+    jogo.porSegundo;
+
+  forcaClique.textContent =
+    jogo.porClique;
+
+
+  document.getElementById(
+    "custoClique"
+  ).textContent =
+    jogo.custos.clique;
+
+
+  document.getElementById(
+    "custoAuto"
+  ).textContent =
+    jogo.custos.auto;
+
+
+  document.getElementById(
+    "custoMega"
+  ).textContent =
+    jogo.custos.mega;
+
+
+  document.getElementById(
+    "custoFabrica"
+  ).textContent =
+    jogo.custos.fabrica;
+
+
+  upgradeClique.disabled =
+    jogo.moedas < jogo.custos.clique;
+
+
+  upgradeAuto.disabled =
+    jogo.moedas < jogo.custos.auto;
+
+
+  upgradeMega.disabled =
+    jogo.moedas < jogo.custos.mega;
+
+
+  upgradeFabrica.disabled =
+    jogo.moedas < jogo.custos.fabrica;
+
+}
+
+
+// CLICAR NA MOEDA
+
+moeda.addEventListener(
+  "click",
+  function() {
+
+    jogo.moedas +=
+      jogo.porClique;
+
+    salvarJogo();
+
+    atualizarTela();
+
+  }
+);
+
+
+// UPGRADE DE CLIQUE
+
+upgradeClique.addEventListener(
+  "click",
+  function() {
+
+    if (
+      jogo.moedas <
+      jogo.custos.clique
+    ) {
+
+      return;
+
+    }
+
+
+    jogo.moedas -=
+      jogo.custos.clique;
+
+
+    jogo.porClique += 1;
+
+
+    jogo.custos.clique =
+      Math.ceil(
+        jogo.custos.clique * 1.6
+      );
+
+
+    salvarJogo();
+
+    atualizarTela();
+
+  }
+);
+
+
+// MINERADOR
+
+upgradeAuto.addEventListener(
+  "click",
+  function() {
+
+    if (
+      jogo.moedas <
+      jogo.custos.auto
+    ) {
+
+      return;
+
+    }
+
+
+    jogo.moedas -=
+      jogo.custos.auto;
+
+
+    jogo.porSegundo += 1;
+
+
+    jogo.custos.auto =
+      Math.ceil(
+        jogo.custos.auto * 1.7
+      );
+
+
+    salvarJogo();
+
+    atualizarTela();
+
+  }
+);
+
+
+// SUPER CLIQUE
+
+upgradeMega.addEventListener(
+  "click",
+  function() {
+
+    if (
+      jogo.moedas <
+      jogo.custos.mega
+    ) {
+
+      return;
+
+    }
+
+
+    jogo.moedas -=
+      jogo.custos.mega;
+
+
+    jogo.porClique += 10;
+
+
+    jogo.custos.mega =
+      Math.ceil(
+        jogo.custos.mega * 2.1
+      );
+
+
+    salvarJogo();
+
+    atualizarTela();
+
+  }
+);
+
+
+// FÁBRICA
+
+upgradeFabrica.addEventListener(
+  "click",
+  function() {
+
+    if (
+      jogo.moedas <
+      jogo.custos.fabrica
+    ) {
+
+      return;
+
+    }
+
+
+    jogo.moedas -=
+      jogo.custos.fabrica;
+
+
+    jogo.porSegundo += 10;
+
+
+    jogo.custos.fabrica =
+      Math.ceil(
+        jogo.custos.fabrica * 2.2
+      );
+
+
+    salvarJogo();
+
+    atualizarTela();
+
+  }
+);
+
+
+// PRODUÇÃO AUTOMÁTICA
+
+setInterval(
+  function() {
+
+    if (jogo.porSegundo > 0) {
+
+      jogo.moedas +=
+        jogo.porSegundo;
+
+      salvarJogo();
+
+      atualizarTela();
+
+    }
+
+  },
+
+  1000
+
+);
+
+
+// RESETAR
+
+resetar.addEventListener(
+  "click",
+  function() {
+
+    const confirmar =
+      confirm(
+        "Deseja realmente apagar todo o progresso?"
+      );
+
+
+    if (!confirmar) {
+
+      return;
+
+    }
+
+
+    localStorage.removeItem(
+      SAVE_KEY
+    );
+
+
+    location.reload();
+
+  }
+);
+
+
+// INICIAR
+
+carregarJogo();
+
+atualizarTela();
