@@ -1,0 +1,282 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  font-family: Arial, sans-serif;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #5d2db5,
+      #10091f 60%
+    );
+}
+
+.game {
+  width: min(100%, 900px);
+}
+
+h1 {
+  margin: 0;
+
+  text-align: center;
+
+  color: #ffd84d;
+
+  font-size: 50px;
+
+  text-shadow:
+    0 0 20px #ff9900;
+}
+
+.subtitle {
+  text-align: center;
+
+  color: #c9c2dc;
+
+  margin-bottom: 25px;
+}
+
+
+/* ESTATÍSTICAS */
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.stat {
+  padding: 15px;
+
+  text-align: center;
+
+  border-radius: 15px;
+
+  background: #ffffff12;
+
+  border: 1px solid #ffffff20;
+}
+
+.stat span {
+  display: block;
+
+  color: #bbb;
+}
+
+.stat strong {
+  display: block;
+
+  margin-top: 5px;
+
+  font-size: 25px;
+
+  color: #ffd84d;
+}
+
+
+/* LAYOUT */
+
+.layout {
+  display: grid;
+
+  grid-template-columns:
+    1.1fr 0.9fr;
+
+  gap: 20px;
+}
+
+
+/* ÁREA DO CLIQUE */
+
+.click-area,
+.shop {
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background: #ffffff10;
+
+  border: 1px solid #ffffff20;
+
+  box-shadow:
+    0 15px 40px #0005;
+}
+
+.click-area {
+  text-align: center;
+}
+
+
+/* MOEDA */
+
+.coin {
+  width: 230px;
+  height: 230px;
+
+  margin: 25px auto;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  border: 10px solid #ffad19;
+
+  background:
+    radial-gradient(
+      circle at 35% 25%,
+      #fff59a,
+      #ffd02e 45%,
+      #e48700
+    );
+
+  box-shadow:
+    0 0 45px #ffad1970,
+    inset 0 -13px 0 #bd6900;
+
+  font-size: 80px;
+
+  cursor: pointer;
+
+  transition: transform 0.1s;
+}
+
+.coin:hover {
+  transform: scale(1.05);
+}
+
+.coin:active {
+  transform: scale(0.9);
+}
+
+
+/* LOJA */
+
+.shop h2 {
+  margin-top: 0;
+}
+
+.upgrade {
+  width: 100%;
+
+  margin: 7px 0;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #5d38b6;
+
+  color: white;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.15s;
+}
+
+.upgrade:hover:not(:disabled) {
+  background: #754bd8;
+
+  transform: translateY(-2px);
+}
+
+.upgrade:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+.upgrade b,
+.upgrade span,
+.upgrade small {
+  display: block;
+}
+
+.upgrade b {
+  font-size: 16px;
+}
+
+.upgrade span {
+  margin-top: 5px;
+
+  color: #ddd;
+}
+
+.upgrade small {
+  margin-top: 8px;
+
+  color: #ffd84d;
+}
+
+
+/* BOTÃO RESET */
+
+.reset {
+  display: block;
+
+  margin: 20px auto;
+
+  padding: 10px 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #d33d55;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.reset:hover {
+  background: #ef5069;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .coin {
+    width: 190px;
+    height: 190px;
+
+    font-size: 65px;
+  }
+
+}
