@@ -1,140 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💰 Clicker Mania</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="estilos.css">
+    <title>Clicker Mania</title>
+
+    <link rel="stylesheet" href="estilos.css">
 </head>
 
 <body>
 
-  <main class="game">
+    <div class="container">
 
-    <h1>💰 Clicker Mania</h1>
-    <p class="subtitle">
-      Clique na moeda e fique milionário!
-    </p>
+        <h1>💰 Clicker Mania</h1>
 
-    <section class="stats">
+        <p>Clique na moeda para ganhar dinheiro!</p>
 
-      <div class="stat">
-        <span>💰 Moedas</span>
-        <strong id="moedas">0</strong>
-      </div>
+        <div class="status">
 
-      <div class="stat">
-        <span>👆 Por clique</span>
-        <strong id="porClique">1</strong>
-      </div>
+            <div>
+                💰 Moedas
+                <strong id="moedas">0</strong>
+            </div>
 
-      <div class="stat">
-        <span>⚙️ Por segundo</span>
-        <strong id="porSegundo">0</strong>
-      </div>
+            <div>
+                👆 Por clique
+                <strong id="clique">1</strong>
+            </div>
 
-    </section>
+            <div>
+                ⚙️ Por segundo
+                <strong id="segundo">0</strong>
+            </div>
 
-    <div class="layout">
+        </div>
 
-      <section class="click-area">
+        <div class="game">
 
-        <h2>🪙 Clique!</h2>
+            <section class="clicker">
 
-        <button id="moeda" class="coin">
-          🪙
+                <h2>🪙 Clique!</h2>
+
+                <button id="botaoMoeda" class="moeda">
+                    🪙
+                </button>
+
+                <p>
+                    Cada clique:
+                    <b id="valorClique">1</b>
+                </p>
+
+            </section>
+
+            <section class="loja">
+
+                <h2>🛒 Loja</h2>
+
+                <button id="btnClique" class="upgrade">
+                    ⚡ Clique Poderoso
+                    <span>+1 por clique</span>
+                    <small>
+                        Custo: <b id="custoClique">10</b>
+                    </small>
+                </button>
+
+                <button id="btnAuto" class="upgrade">
+                    🤖 Minerador
+                    <span>+1 por segundo</span>
+                    <small>
+                        Custo: <b id="custoAuto">50</b>
+                    </small>
+                </button>
+
+                <button id="btnMega" class="upgrade">
+                    🚀 Super Clique
+                    <span>+10 por clique</span>
+                    <small>
+                        Custo: <b id="custoMega">250</b>
+                    </small>
+                </button>
+
+                <button id="btnFabrica" class="upgrade">
+                    🏭 Fábrica
+                    <span>+10 por segundo</span>
+                    <small>
+                        Custo: <b id="custoFabrica">1000</b>
+                    </small>
+                </button>
+
+            </section>
+
+        </div>
+
+        <button id="resetar" class="reset">
+            🗑️ Resetar jogo
         </button>
-
-        <p>
-          Cada clique vale
-          <b id="forcaClique">1</b>
-          moeda(s)
-        </p>
-
-      </section>
-
-
-      <section class="shop">
-
-        <h2>🛒 Loja</h2>
-
-        <button class="upgrade" id="upgradeClique">
-
-          <b>⚡ Clique Poderoso</b>
-
-          <span>
-            +1 moeda por clique
-          </span>
-
-          <small>
-            Custo:
-            <strong id="custoClique">25</strong>
-          </small>
-
-        </button>
-
-
-        <button class="upgrade" id="upgradeAuto">
-
-          <b>🤖 Minerador</b>
-
-          <span>
-            +1 moeda por segundo
-          </span>
-
-          <small>
-            Custo:
-            <strong id="custoAuto">100</strong>
-          </small>
-
-        </button>
-
-
-        <button class="upgrade" id="upgradeMega">
-
-          <b>🚀 Super Clique</b>
-
-          <span>
-            +10 moedas por clique
-          </span>
-
-          <small>
-            Custo:
-            <strong id="custoMega">500</strong>
-          </small>
-
-        </button>
-
-
-        <button class="upgrade" id="upgradeFabrica">
-
-          <b>🏭 Fábrica</b>
-
-          <span>
-            +10 moedas por segundo
-          </span>
-
-          <small>
-            Custo:
-            <strong id="custoFabrica">2000</strong>
-          </small>
-
-        </button>
-
-      </section>
 
     </div>
 
-
-    <button id="resetar" class="reset">
-      🗑️ Resetar progresso
-    </button>
-
-  </main>
-
-
-  <script src="logica.js"></script>
+    <script src="logica.js"></script>
 
 </body>
 </html>
